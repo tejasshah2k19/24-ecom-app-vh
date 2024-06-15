@@ -1,0 +1,17 @@
+bcrypt -> 
+
+
+signup => plain text => dev123 => bcrypt->encrypt -> 4jkljkjrlkjklrjelwkrjlewr
+
+1) jar:lib:dep -> spring crypto maven 
+2) create config folder 
+
+package com.config;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class MyConfig {
+	
+}
+

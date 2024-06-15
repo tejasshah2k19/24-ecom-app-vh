@@ -1,0 +1,13 @@
+create database ecomapp;
+
+use ecomapp;
+
+create table users(
+	userId int primary key auto_increment,
+	firstName varchar(30),
+	gender varchar(10),
+	email varchar(30),
+	password varchar(255),
+	role varchar(10) 
+);
+	
