@@ -11,9 +11,4 @@ public class MyConfig {
 	BCryptPasswordEncoder getEnconder() {
 		return new BCryptPasswordEncoder();
 	}
-
-	//
-	//
-
-	
 }
