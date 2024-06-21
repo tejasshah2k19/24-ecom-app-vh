@@ -3,6 +3,7 @@ package com.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,36 +42,51 @@ public class SessionController {
 	}
 
 	@PostMapping("/authenticate")
-	public String authenticate(@RequestParam("email") String email, @RequestParam("password") String password) {
+	public String authenticate(@RequestParam("email") String email, @RequestParam("password") String password,
+			Model model) {
 		System.out.println(email);
 		System.out.println(password);
 		// dev@gmail.com
 		// dev123
 		// read existing info from database using email
 		boolean authStatus = false;
+		UserBean dbUser = null;
 		try {
-			UserBean dbUser = userDao.getUserByEmail(email);
+			// if email is invalid we will got exception
+			dbUser = userDao.getUserByEmail(email);
 			System.out.println("dbUser Found");
-		
-			String encPwd = dbUser.getPassword(); 
-			
-			if(encoder.matches(password, encPwd) == true) {
-				authStatus = true; 
-			}else {
+
+			String encPwd = dbUser.getPassword();
+
+			if (encoder.matches(password, encPwd) == true) {
+				authStatus = true;
+			} else {
 				authStatus = false;
 			}
-			
-			
+
 		} catch (Exception e) {
 			System.out.println("authenticate -- Exception---");
 			authStatus = false;
 		}
 
 		if (authStatus == false) {
+			model.addAttribute("error", "Invalid Credentials");
 			return "Login";
 		} else {
-			return "Home";// true -> Home False -> Login
+			//credentials true --> 
+
+			if (dbUser.getRole().equals("ADMIN")) {
+				return "redirect:/dashboard";
+			} else if (dbUser.getRole().equals("CUSTOMER")) {
+				return "Home";
+			}
+			return "ERROR";// true -> Home False -> Login
 		}
 	}
 
+	@GetMapping("/logout")
+	public String logout() {
+		return "redirect:/login";
+	}
+	
 }

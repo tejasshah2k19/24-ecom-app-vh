@@ -4,16 +4,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-
 </head>
 <body>
-<h2>Home</h2>
 
-List Products 
-<br>Cart 
-<br>Orders
+<h2>Admin Dashboard</h2>
 
-<br><br>
+
+
+<br><Br> 
+
 <a href="logout">Logout</a>
 
 </body>
