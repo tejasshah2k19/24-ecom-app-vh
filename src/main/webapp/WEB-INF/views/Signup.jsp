@@ -18,5 +18,9 @@
 	
 	<input type="submit" value="Signup"/>
 </form>
+<br>
+
+<a href="login">Login</a>
+
 </body>
 </html>

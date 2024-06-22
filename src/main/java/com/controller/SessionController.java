@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bean.UserBean;
 import com.dao.UserDao;
+import com.service.OtpService;
 
 @Controller
 public class SessionController {
@@ -19,6 +20,9 @@ public class SessionController {
 
 	@Autowired
 	BCryptPasswordEncoder encoder;
+
+	@Autowired
+	OtpService otpService;
 
 	@GetMapping("/signup")
 	public String signup() {
@@ -73,7 +77,7 @@ public class SessionController {
 			model.addAttribute("error", "Invalid Credentials");
 			return "Login";
 		} else {
-			//credentials true --> 
+			// credentials true -->
 
 			if (dbUser.getRole().equals("ADMIN")) {
 				return "redirect:/dashboard";
@@ -88,5 +92,37 @@ public class SessionController {
 	public String logout() {
 		return "redirect:/login";
 	}
-	
+
+	@GetMapping("/forgetpassword")
+	public String forgetPassword() {
+		return "ForgetPassword";
+	}
+
+	@PostMapping("/sendotp")
+	public String sendOtp(@RequestParam("email") String email, Model model) {
+		System.out.println("email => " + email);
+		// check db -> present
+		// select * from users where email = ?
+		UserBean user = null;
+		try {
+			user = userDao.getUserByEmail(email);
+			// if email is invalid -> dao -> throw exception
+		} catch (Exception e) {
+			System.out.println("email not found....");
+		}
+
+		if (user == null) {
+			model.addAttribute("error", "Email Not Found");
+			return "ForgetPassword";
+		} else {
+			// otp generate
+			String otp = otpService.genereateOtp();
+			System.out.println("OTP => " + otp);
+			// user:email:otp
+			// mail otp
+
+			return "VerifyOtp";
+		}
+	}
+
 }

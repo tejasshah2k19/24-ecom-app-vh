@@ -17,5 +17,12 @@
 	</form>
 	<br>
 	<Br> ${error}
+	
+	<Br>
+	
+<a href="signup">Signup</a> | 
+
+<a href="forgetpassword">ForgetPassword?</a>
+	
 </body>
 </html>
