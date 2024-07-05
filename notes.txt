@@ -15,3 +15,32 @@ public class MyConfig {
 	
 }
 
+
+------------------------------------------------------------------
+
+lib/dep ->file 
+
+apache commons 
+
+1) fileupload
+2) io 
+
+
+
+2) form -> 
+		method: post 
+		encType="multipart/form-data"
+		
+		text+{image,pdf}byte
+
+		input type=file 
+	
+2) server -> controller -> method 
+		read data 
+		read image 
+		
+		
+
+
+
+

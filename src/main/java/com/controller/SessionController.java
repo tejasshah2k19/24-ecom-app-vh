@@ -1,6 +1,8 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,14 @@ public class SessionController {
 
 	@Autowired
 	OtpService otpService;
+
+	@Autowired
+	JavaMailSender mailSender;
+
+	@GetMapping("/")
+	public String home() {
+		return "Welcome";
+	}
 
 	@GetMapping("/signup")
 	public String signup() {
@@ -120,6 +130,14 @@ public class SessionController {
 			System.out.println("OTP => " + otp);
 			// user:email:otp
 			// mail otp
+
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setFrom("tejasshah2k19@gmail.com");
+			message.setTo(email);
+			message.setSubject("OTP for Reset Password");
+			message.setText("USE THIS OTP : "+otp);
+
+			mailSender.send(message);
 
 			return "VerifyOtp";
 		}

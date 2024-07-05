@@ -11,3 +11,16 @@ create table users(
 	role varchar(10) 
 );
 	
+	
+	
+create table products(
+ 	productId integer primary key auto_increment,
+ 	productName varchar(30),
+ 	category varchar(30),
+ 	qty int,
+ 	price float
+ );
+ 
+alter table products add column productImagePath varchar(1200);
+
+
