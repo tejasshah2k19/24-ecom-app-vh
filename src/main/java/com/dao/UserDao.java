@@ -26,6 +26,27 @@ public class UserDao {
 	public UserBean getUserByEmail(String email) {
 		UserBean user = stmt.queryForObject("select * from users where email = ? ",
 				new BeanPropertyRowMapper<>(UserBean.class), new Object[] { email });
-		return user; 
+		return user;
+	}
+
+	public void updateOtp(String email, String otp) {
+		stmt.update("update users set otp = ? where email = ?", otp, email);
+	}
+
+	public boolean verifyOtp(String email, String otp) {
+		try {
+			UserBean user = getUserByEmail(email);
+			if (user.getOtp().equals(otp)) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public void updatePassword(String email, String password) {
+		stmt.update("update users set password = ? where email = ?", password, email);
+
 	}
 }

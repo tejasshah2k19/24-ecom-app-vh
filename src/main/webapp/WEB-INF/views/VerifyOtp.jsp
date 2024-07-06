@@ -8,12 +8,14 @@
 </head>
 <body>
 	<h2>Update Password</h2>
-	<form>
-		Email :<Br><br>
-		New Password :<Br><BR> 
-		OTP : <Br><Br>
+	<form method="post" action="updatepassword">
+		Email : <input type="Text" name="email"/><Br><br>
+		New Password : <input type="Text" name="password"/><Br><BR> 
+		OTP :<input type="Text" name="otp"/> <Br><Br>
 				<input type="submit" value="Update Password"/>
 	
 	</form>
+	<br>
+	${error}
 </body>
 </html>

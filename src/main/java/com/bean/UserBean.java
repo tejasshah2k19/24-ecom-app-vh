@@ -14,4 +14,5 @@ public class UserBean {
 	 String email;
 	 String password;
 	 String role; 
+	 String otp;
 }

@@ -131,14 +131,39 @@ public class SessionController {
 			// user:email:otp
 			// mail otp
 
+			// save otp to users table
+
+			// database =>datetime
+			userDao.updateOtp(email, otp);
+
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setFrom("tejasshah2k19@gmail.com");
 			message.setTo(email);
 			message.setSubject("OTP for Reset Password");
-			message.setText("USE THIS OTP : "+otp);
+			message.setText("USE THIS OTP : " + otp);
 
 			mailSender.send(message);
 
+			return "VerifyOtp";
+		}
+	}
+
+	@PostMapping("updatepassword")
+	public String updatePassword(UserBean userBean,Model model) {
+
+		// verify email - otp
+		boolean status = userDao.verifyOtp(userBean.getEmail(), userBean.getOtp());
+ 		if (status == true) {
+			// yes -> password update -> login
+ 			
+ 			String password  = encoder.encode(userBean.getPassword());
+ 			userDao.updatePassword(userBean.getEmail(),password);
+ 			userDao.updateOtp(userBean.getEmail(), "");   
+ 			
+			return "redirect:/login";// url
+		}else {
+			// no -> error
+			model.addAttribute("error","Data Does not match");
 			return "VerifyOtp";
 		}
 	}
