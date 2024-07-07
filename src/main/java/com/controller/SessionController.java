@@ -14,6 +14,8 @@ import com.bean.UserBean;
 import com.dao.UserDao;
 import com.service.OtpService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class SessionController {
 
@@ -57,7 +59,7 @@ public class SessionController {
 
 	@PostMapping("/authenticate")
 	public String authenticate(@RequestParam("email") String email, @RequestParam("password") String password,
-			Model model) {
+			Model model, HttpSession session) {
 		System.out.println(email);
 		System.out.println(password);
 		// dev@gmail.com
@@ -74,6 +76,7 @@ public class SessionController {
 
 			if (encoder.matches(password, encPwd) == true) {
 				authStatus = true;
+				session.setAttribute("user", dbUser);
 			} else {
 				authStatus = false;
 			}
@@ -149,21 +152,21 @@ public class SessionController {
 	}
 
 	@PostMapping("updatepassword")
-	public String updatePassword(UserBean userBean,Model model) {
+	public String updatePassword(UserBean userBean, Model model) {
 
 		// verify email - otp
 		boolean status = userDao.verifyOtp(userBean.getEmail(), userBean.getOtp());
- 		if (status == true) {
+		if (status == true) {
 			// yes -> password update -> login
- 			
- 			String password  = encoder.encode(userBean.getPassword());
- 			userDao.updatePassword(userBean.getEmail(),password);
- 			userDao.updateOtp(userBean.getEmail(), "");   
- 			
+
+			String password = encoder.encode(userBean.getPassword());
+			userDao.updatePassword(userBean.getEmail(), password);
+			userDao.updateOtp(userBean.getEmail(), "");
+
 			return "redirect:/login";// url
-		}else {
+		} else {
 			// no -> error
-			model.addAttribute("error","Data Does not match");
+			model.addAttribute("error", "Data Does not match");
 			return "VerifyOtp";
 		}
 	}

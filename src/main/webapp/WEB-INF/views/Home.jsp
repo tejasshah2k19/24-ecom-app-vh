@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,14 +7,15 @@
 
 </head>
 <body>
-<h2>Home</h2>
+	<h2>Home</h2>
 
-List Products 
-<br>Cart 
-<br>Orders
+	<a href="listproducts">List Products</a>
+	<br>Cart
+	<br>Orders
 
-<br><br>
-<a href="logout">Logout</a>
+	<br>
+	<br>
+	<a href="logout">Logout</a>
 
 </body>
 </html>

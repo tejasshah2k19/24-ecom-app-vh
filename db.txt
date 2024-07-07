@@ -24,3 +24,16 @@ create table products(
 alter table products add column productImagePath varchar(1200);
 
 
+
+cart 
+	productId
+	userId 
+
+
+
+
+
+
+
+
+
