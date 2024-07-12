@@ -39,19 +39,22 @@ public class EProductController {
 
 		// cloud -> filestorage=>S3 , azure , gcp , digital ocean
 
-		String productImagePath = "C:\\sts\\ecom-app\\src\\main\\webapp\\images\\products\\";
-		try {
-			File file = new File(productImagePath, productBean.getProductImage().getOriginalFilename());
-			byte b[] = productBean.getProductImage().getBytes();// copy
-			FileUtils.writeByteArrayToFile(file, b);
+		if (productBean.getProductImage() == null) {
+			String productImagePath = "C:\\sts\\ecom-app\\src\\main\\webapp\\images\\products\\";
+			try {
+				File file = new File(productImagePath, productBean.getProductImage().getOriginalFilename());
+				byte b[] = productBean.getProductImage().getBytes();// copy
+				FileUtils.writeByteArrayToFile(file, b);
 
-			productBean.setProductImagePath("images/products/" + productBean.getProductImage().getOriginalFilename());
+				productBean
+						.setProductImagePath("images/products/" + productBean.getProductImage().getOriginalFilename());
 
-			productDao.addProduct(productBean);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		productDao.addProduct(productBean);
+
 		// productDao.addProduct(productBean);// argument
 		return "redirect:/products";// url call
 
