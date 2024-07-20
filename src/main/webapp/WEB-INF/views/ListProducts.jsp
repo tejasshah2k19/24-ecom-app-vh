@@ -7,7 +7,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -17,6 +16,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style type="text/css">
 @import
 	url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap')
@@ -80,6 +80,7 @@ a, a:hover {
 }
 
 .section-products #product-1 .part-1::before {
+	background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
 	background-size: cover;
 	transition: all 0.3s;
 }
@@ -180,75 +181,68 @@ a, a:hover {
 	transform: translateY(-50%);
 }
 </style>
+
 </head>
 <body>
+
 	<%
 	List<EProductBean> products = (List<EProductBean>) request.getAttribute("products");
 	%>
 
-	<div class="container-fluid">
-		<h2>List Products</h2>
 
-
-		<section class="section-products">
-			<div class="container">
-				<div class="row justify-content-center text-center">
-					<div class="col-md-8 col-lg-6">
-						<div class="header">
-							<h3>Featured Product</h3>
-							<h2>Popular Products</h2>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<!-- start -->
-					<%
-					for (EProductBean p : products) {
-					%>
-					<!-- Single Product -->
-					<div class="col-md-6 col-lg-4 col-xl-3">
-						<div id="product-1" class="single-product">
-							<div class="part-1">
-
-								<%
-								if (p.getProductImagePath() == null || p.getProductImagePath().length() == 0) {
-								%>
-								<img src="images/products/noproduct.jpg" width="100%" height="100%" />
-
-								<%
-								} else {
-								%>
-								<img src="<%=p.getProductImagePath()%>" width="100%"
-									height="100%" />
-								<%
-								}
-								%>
-								<ul>
-									<li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-									<li><a href="#"><i class="fas fa-heart"></i></a></li>
-									<li><a href="#"><i class="fas fa-plus"></i></a></li>
-									<li><a href="viewproduct?productId=<%=p.getProductId()%>"><i
-											class="fas fa-eye"></i></a></li>
-								</ul>
-							</div>
-							<div class="part-2">
-								<h3 class="product-title"><%=p.getProductName()%></h3>
-								<h4 class="product-old-price"><%=p.getPrice() * 0.05 + p.getPrice()%></h4>
-								<h4 class="product-price"><%=p.getPrice()%></h4>
-							</div>
-						</div>
-					</div>
-					<%
-					}
-					%>
-					<!-- end -->
-				</div>
-			</div>
-		</section>
-
+	<div class="row">
+		<div class="col-md">
+			
+			<a href="	logout">Logout</a>
+	|
+	<a href="mycart">My Cart</a>
+		</div>
 	</div>
 
+	<section class="section-products">
+		<div class="container">
+			<div class="row justify-content-center text-center">
+				<div class="col-md-8 col-lg-6">
+					<div class="header">
+						<h3>Featured Product</h3>
+						<h2>Popular Products</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
 
 
+				<!-- start -->
+				<%
+				for (EProductBean p : products) {
+				%>
+				<!-- Single Product -->
+				<div class="col-md-6 col-lg-4 col-xl-3">
+					<div id="product-1" class="single-product">
+						<div class="part-1">
+							<a href="userviewimage?productId=<%=p.getProductId()%>"> <img
+								src="<%=p.getProductImagePath()%>" height="100%" width="100%" />
+							</a>
+							<ul>
+								<li><a href="addtocart?productId=<%=p.getProductId()%>"><i
+										class="fas fa-shopping-cart"></i></a></li>
+								<li><a href="#"><i class="fas fa-heart"></i></a></li>
+								<li><a href="#"><i class="fas fa-eye"></i></a></li>
+							</ul>
+						</div>
+						<div class="part-2">
+							<h3 class="product-title"><%=p.getProductName()%></h3>
+							<h4 class="product-old-price"><%=p.getPrice() * 0.05 + p.getPrice()%></h4>
+							<h4 class="product-price"><%=p.getPrice()%></h4>
+						</div>
+					</div>
+				</div>
+				<!-- end -->
+				<%
+				}
+				%>
+			</div>
+		</div>
+	</section>
 </body>
 </html>
