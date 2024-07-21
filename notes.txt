@@ -48,6 +48,48 @@ Login
 	userId 
 	
 	
+---------------------------------------------------------------
+if user click 3 times on same product for add to cart => 
+
+we want to add qty button in cart or view product => self
+
+
+cart -> qty ?
+cart present -> 
+
+cartId userId productId qty
+1		2		13		1
+
+
+when user click on add to cart -> on server -> we  will get 
+		product id and user id -> using this we have to check in db -> cart -> 
+		qty = qty+ 1 
+		 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	

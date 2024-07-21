@@ -29,21 +29,26 @@ public class CartController {
 		Integer userId = userBean.getUserId();
 
 		ECartBean cartBean = new ECartBean();
-
 		cartBean.setProductId(productId);
 		cartBean.setUserId(userId);
 
-		cartDao.addToCart(cartBean);
+		int qty = cartDao.checkForExistingItem(cartBean);
 
+		if (qty == 0) {
+			cartDao.addToCart(cartBean);
+		}else {
+			cartBean.setQty(qty+1);
+			cartDao.updateCart(cartBean);
+		}
 		return "redirect:/listproducts";// url
 	}
 
 	@GetMapping("/mycart")
-	public String myCart(HttpSession session,Model model) {
+	public String myCart(HttpSession session, Model model) {
 		UserBean user = (UserBean) session.getAttribute("user");
 		Integer userId = user.getUserId();
 		List<EProductBean> products = cartDao.myCart(userId);
-		model.addAttribute("products",products);
+		model.addAttribute("products", products);
 		return "MyCart";
 
 	}

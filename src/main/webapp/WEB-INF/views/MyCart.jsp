@@ -25,6 +25,7 @@
 			<th>ProductName</th>
 			<th>Image</th>
 			<th>Price</th>
+			<th>Qty</th>
 			<th>Action</th>
 		</tr>
 		<%
@@ -33,11 +34,13 @@
 			out.print("<td>" + p.getProductId() + "</td><td>" + p.getProductName() + "</td>");
 			out.print("<td><img height='100px' width='100px' src='" + p.getProductImagePath() + "'/></td>");
 			out.print("<td>" + p.getPrice() + "</td>");
+			out.print("<td>" + p.getQty() + "</td>");
+
 			out.print("<td><a href='removecartitem'>Remove</a></td>");
 
 			out.print("</tr>");
 
-			price = price + p.getPrice();
+			price = price + (p.getPrice() * p.getQty());
 		}
 		%>
 
